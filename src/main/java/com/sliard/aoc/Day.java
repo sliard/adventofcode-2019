@@ -1,4 +1,4 @@
-package aoc;
+package com.sliard.aoc;
 
 /**
  * Interface for all days.

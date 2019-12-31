@@ -1,4 +1,4 @@
-package aoc.utils;
+package com.sliard.aoc.utils;
 
 import java.awt.*;
 import java.util.ArrayList;

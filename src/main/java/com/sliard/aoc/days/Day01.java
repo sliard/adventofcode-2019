@@ -1,7 +1,7 @@
-package aoc.days;
+package com.sliard.aoc.days;
 
-import aoc.Day;
-import aoc.utils.ReadTxtFile;
+import com.sliard.aoc.Day;
+import com.sliard.aoc.utils.ReadTxtFile;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package aoc.days;
+package com.sliard.aoc.days;
 
 
 import org.junit.jupiter.params.ParameterizedTest;
