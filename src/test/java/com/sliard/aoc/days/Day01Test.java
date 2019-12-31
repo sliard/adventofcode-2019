@@ -10,8 +10,10 @@ public class Day01Test {
 
     @ParameterizedTest
     @CsvSource({
-            "/day01-01.txt, 200",
-            "/day01-02.txt, -50"
+            "/day01-01.txt, 2",
+            "/day01-02.txt, 2",
+            "/day01-03.txt, 654",
+            "/day01-04.txt, 33583"
     })
     void testPart1(String fileName, int result) {
         Day01 day = new Day01();
@@ -21,8 +23,9 @@ public class Day01Test {
 
     @ParameterizedTest
     @CsvSource({
-            "/day01-01.txt, 400",
-            "/day01-02.txt, -100"
+            "/day01-21.txt, 2",
+            "/day01-22.txt, 966",
+            "/day01-23.txt, 50346"
     })
     void testPart2(String fileName, int result) {
         Day01 day = new Day01();

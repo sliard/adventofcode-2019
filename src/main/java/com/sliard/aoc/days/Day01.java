@@ -5,15 +5,17 @@ import com.sliard.aoc.utils.ReadTxtFile;
 
 import java.util.List;
 
-public class Day01 extends Day<Integer> {
+public class Day01 extends Day<Long> {
 
     public static void main(String[] args) {
         Day01 d = new Day01();
         d.init("/day01.txt");
         d.printResult();
+
+        // 37099 your answer is too low
     }
 
-    String data;
+    List<String> allLines;
 
     public void init(String ...args) {
         // init stuff
@@ -22,27 +24,36 @@ public class Day01 extends Day<Integer> {
             return;
         }
         try {
-            List<String> allLines = ReadTxtFile.readFileAsStringList(args[0]);
-            data = allLines.get(0);
+            allLines = ReadTxtFile.readFileAsStringList(args[0]);
         } catch (Exception ex) {
             println("Read file error ("+args[0]+") : "+ex.getMessage());
         }
     }
 
-    public Integer part1() {
-        try {
-            return Integer.parseInt(data);
-        } catch (Exception ex) {
-            return -1;
+    public Long part1() {
+        long result = 0;
+        for(String line : allLines) {
+            long val = Long.parseLong(line);
+            result += (val/3)-2;
         }
+        return result;
     }
 
-    public Integer part2() {
-        try {
-            return Integer.parseInt(data)*2;
-        } catch (Exception ex) {
-            return -1;
+    public Long part2() {
+        long result = 0;
+        for(String line : allLines) {
+            long val = Long.parseLong(line);
+            result += getRequiresFuel(val);
         }
+        return result;
+    }
+
+    public Long getRequiresFuel(long mass) {
+        long result = (mass/3-2);
+        if(result <= 0 ){
+            return 0L;
+        }
+        return result + getRequiresFuel(result);
     }
 
 }
