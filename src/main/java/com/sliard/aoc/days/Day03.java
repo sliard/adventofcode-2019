@@ -2,16 +2,14 @@ package com.sliard.aoc.days;
 
 import com.sliard.aoc.Day;
 import com.sliard.aoc.common.Direction;
-import com.sliard.aoc.incode.InCode;
 import com.sliard.aoc.utils.ReadTxtFile;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.xml.xpath.XPath;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Day03 extends Day<Long> {
 
@@ -125,7 +123,7 @@ public class Day03 extends Day<Long> {
         y=0;
         distance=0;
 
-        Map<String, Step> allCrossStep = new HashMap<>();
+        int minDistance = Integer.MAX_VALUE;
 
         for(int pi = 0; pi < wire2.size(); pi++) {
             Path path = wire2.get(pi);
@@ -139,16 +137,11 @@ public class Day03 extends Day<Long> {
                     ns.p = new Point(fs.p);
                     ns.cross = true;
                     ns.distance = fs.distance + distance + 1;
-                    allCrossStep.put(ns.getKey(), ns);
+                    if(ns.distance < minDistance) {
+                        minDistance = ns.distance;
+                    }
                 }
                 distance++;
-            }
-        }
-
-        int minDistance = Integer.MAX_VALUE;
-        for(Step s : allCrossStep.values()) {
-            if(s.distance < minDistance) {
-                minDistance = s.distance;
             }
         }
 
