@@ -9,6 +9,7 @@ public enum Operation {
     JUMP_IF_FALSE(6, 3),
     LESS_THAN(7, 4),
     EQUALS(8, 4),
+    OFFSET(9, 2),
     END(99,1);
 
     int val;

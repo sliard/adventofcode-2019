@@ -6,8 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,8 +22,7 @@ public class Day02Test {
         InCode inCode = new InCode();
         inCode.initFromFile(fileName);
         inCode.compute();
-        String afterCompute = Arrays.stream(inCode.alldata).mapToObj(String::valueOf).collect(Collectors.joining(","));
-        assertEquals(result, afterCompute);
+        assertEquals(result, inCode.getAllDataAsString());
     }
 
 }

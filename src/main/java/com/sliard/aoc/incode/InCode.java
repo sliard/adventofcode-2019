@@ -4,15 +4,20 @@ import com.sliard.aoc.utils.ReadTxtFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InCode {
 
-    public long[] alldata;
+    public Map<Integer,Long> alldata;
     public String initData;
 
     public List<Long> input;
     public List<Long> output;
+
+    public int offset;
 
     public void initFromFile(String fileName) throws IOException {
         List<String> allLines = ReadTxtFile.readFileAsStringList(fileName);
@@ -22,12 +27,13 @@ public class InCode {
     public void initFromString(String allDataAsString) {
         this.initData = allDataAsString;
         String[] stringData = allDataAsString.split(",");
-        alldata = new long[stringData.length];
+        alldata = new HashMap<>();
         for(int i = 0; i < stringData.length; i++) {
-            alldata[i] = Long.parseLong(stringData[i]);
+            alldata.put(i,Long.parseLong(stringData[i]));
         }
         input = new ArrayList<>();
         output = new ArrayList<>();
+        offset = 0;
     }
 
     public void cleanData() {
@@ -42,7 +48,7 @@ public class InCode {
 
         while(true) {
 
-            Instruction instruction = new Instruction(alldata[index]);
+            Instruction instruction = new Instruction(alldata.get(index));
             switch (instruction.op) {
                 case ADD:
                     long val1 = getValue(index+1,instruction.modes[0]) + getValue(index+2,instruction.modes[1]);
@@ -96,6 +102,10 @@ public class InCode {
                     }
                     index += instruction.op.nbElem;
                     break;
+                case OFFSET:
+                    offset += getValue(index+1,instruction.modes[0]);
+                    index += instruction.op.nbElem;
+                    break;
                 case END:
                     return index;
             }
@@ -107,21 +117,42 @@ public class InCode {
     public long getValue(int index, ParameterMode mode) {
         switch (mode) {
             case POSITION:
-                return alldata[(int)alldata[index]];
+                return alldata.getOrDefault(alldata.getOrDefault(index,0L).intValue(),0L);
             case IMMEDIATE:
-                return alldata[index];
+                return alldata.getOrDefault(index,0L);
+            case RELATIVE:
+                return alldata.getOrDefault(alldata.getOrDefault(index,0L).intValue()+offset,0L);
             default:
                 throw new IllegalArgumentException("Bad mode : "+mode);
         }
     }
 
-    public long setValue(int index, ParameterMode mode, long value) {
+    public void setValue(int index, ParameterMode mode, long value) {
         switch (mode) {
             case POSITION:
-                return alldata[(int)alldata[index]] = value;
+                Long existVal = alldata.get(index);
+                if(existVal == null) {
+                    throw new IllegalArgumentException("Bad index : "+index);
+                }
+                alldata.put(existVal.intValue(), value);
+                break;
+            case RELATIVE:
+                Long existValR = alldata.get(index);
+                if(existValR == null) {
+                    throw new IllegalArgumentException("Bad index : "+index);
+                }
+                alldata.put(existValR.intValue()+offset, value);
+                break;
             default:
                 throw new IllegalArgumentException("Bad mode : "+mode);
         }
+    }
+
+    public String getAllOutputAsString() {
+        return output.stream().map(e -> ""+e).collect(Collectors.joining(","));
+    }
+    public String getAllDataAsString() {
+        return alldata.values().stream().map(e -> ""+e).collect(Collectors.joining(","));
     }
 
 }

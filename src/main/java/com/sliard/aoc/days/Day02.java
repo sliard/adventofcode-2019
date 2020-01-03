@@ -2,9 +2,6 @@ package com.sliard.aoc.days;
 
 import com.sliard.aoc.Day;
 import com.sliard.aoc.incode.InCode;
-import com.sliard.aoc.utils.ReadTxtFile;
-
-import java.util.List;
 
 public class Day02 extends Day<Long> {
 
@@ -33,10 +30,10 @@ public class Day02 extends Day<Long> {
         try {
             InCode inCode = new InCode();
             inCode.initFromFile(fileName);
-            inCode.alldata[1] = 12L;
-            inCode.alldata[2] = 2L;
+            inCode.alldata.put(1,12L);
+            inCode.alldata.put(2,2L);
             inCode.compute();
-            return inCode.alldata[0];
+            return inCode.alldata.get(0);
         } catch (Exception ex) {
             println("Read file error ("+fileName+") : "+ex.getMessage());
         }
@@ -51,10 +48,10 @@ public class Day02 extends Day<Long> {
             for(int noun = 0; noun < 100; noun++) {
                 for(int verb = 0; verb < 100; verb++) {
                     inCode.cleanData();
-                    inCode.alldata[1] = noun;
-                    inCode.alldata[2] = verb;
+                    inCode.alldata.put(1,(long)noun);
+                    inCode.alldata.put(2,(long)verb);
                     inCode.compute();
-                    if(inCode.alldata[0] == 19690720) {
+                    if(inCode.alldata.get(0) == 19690720) {
                         return 100*noun + (long)verb;
                     }
                 }

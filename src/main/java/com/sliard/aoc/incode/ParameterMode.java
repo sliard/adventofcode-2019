@@ -1,7 +1,7 @@
 package com.sliard.aoc.incode;
 
 public enum ParameterMode {
-    POSITION(0), IMMEDIATE(1);
+    POSITION(0), IMMEDIATE(1), RELATIVE(2);
 
     int val;
 
