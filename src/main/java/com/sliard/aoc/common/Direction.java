@@ -1,14 +1,16 @@
 package com.sliard.aoc.common;
 
 public enum Direction {
-    NORTH("U", 0, -1), EAST("R", 1, 0), SOUTH("D", 0, 1), WEST("L", -1, 0);
+    NORTH("U", 1, 0, -1), EAST("R", 4,1, 0), SOUTH("D", 2, 0, 1), WEST("L", 3, -1, 0);
 
     String val;
+    int intVal;
     public int deltaX;
     public int deltaY;
 
-    Direction(String val, int dx, int dy) {
+    Direction(String val, int intVal, int dx, int dy) {
         this.val = val;
+        this.intVal = intVal;
         this.deltaX = dx;
         this.deltaY = dy;
     }
@@ -20,5 +22,18 @@ public enum Direction {
             }
         }
         return NORTH;
+    }
+
+    public static Direction fromIntVal(int val) {
+        for(Direction op : Direction.values()) {
+            if(op.intVal == val) {
+                return op;
+            }
+        }
+        return NORTH;
+    }
+
+    public int getIntVal() {
+        return intVal;
     }
 }
