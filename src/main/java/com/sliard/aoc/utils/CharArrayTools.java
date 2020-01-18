@@ -56,4 +56,16 @@ public class CharArrayTools {
         return p.x >=0 && p.x < allData.length && p.y >= 0 && p.y < allData[p.x].length;
     }
 
+    public static void printData(char[][] allData) {
+
+        for (int y = 0; y < allData[0].length; y++) {
+            StringBuffer line = new StringBuffer();
+            for(int x=0; x<allData.length; x++) {
+                line.append(allData[x][y]);
+            }
+            System.out.println(line);
+        }
+
+
+    }
 }

@@ -33,6 +33,20 @@ public enum Direction {
         return NORTH;
     }
 
+    public Direction opposite() {
+        switch (this) {
+            case NORTH:
+                return SOUTH;
+            case EAST:
+                return WEST;
+            case WEST:
+                return EAST;
+            case SOUTH:
+                return NORTH;
+        }
+        return NORTH;
+    }
+
     public int getIntVal() {
         return intVal;
     }

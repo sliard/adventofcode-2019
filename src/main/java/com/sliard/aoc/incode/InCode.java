@@ -3,10 +3,7 @@ package com.sliard.aoc.incode;
 import com.sliard.aoc.utils.ReadTxtFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InCode {
@@ -153,6 +150,55 @@ public class InCode {
     }
     public String getAllDataAsString() {
         return alldata.values().stream().map(e -> ""+e).collect(Collectors.joining(","));
+    }
+
+    public List<String> getAsciiOutput() {
+        return getAsciiOutput(false);
+    }
+
+    public List<String> getAsciiOutput(boolean print) {
+        List<String> result = new ArrayList<>();
+        StringBuffer line = new StringBuffer();
+        for(Long val : this.output) {
+            if(val == 10) {
+                if(print) {
+                    System.out.println(line);
+                }
+                result.add(line.toString());
+                line = new StringBuffer();
+            } else if(val > 127) {
+//                System.out.println("val = "+val);
+            } else {
+                line.append((char)val.intValue());
+            }
+        }
+        return result;
+    }
+
+    public long getNotAsciiOutput() {
+        for(Long val : this.output) {
+            if(val > 127) {
+                return val;
+            }
+        }
+        return 0;
+    }
+
+    public String scanInput() {
+        Scanner keyboard = new Scanner(System.in);
+        String inputKeys = keyboard.nextLine();
+
+        for(int i=0; i< inputKeys.length(); i++) {
+            this.input.add((long)inputKeys.charAt(i));
+        }
+        this.input.add(10L);
+        return inputKeys;
+    }
+    public void setInput(String inputKeys) {
+        for(int i=0; i< inputKeys.length(); i++) {
+            this.input.add((long)inputKeys.charAt(i));
+        }
+        this.input.add(10L);
     }
 
 }
