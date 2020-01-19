@@ -186,11 +186,6 @@ public class Day18 extends Day<Long> {
                 if(newStep.allKeys.length() == allKey.size()) {
                     if(result > newStep.distance) {
                         result = newStep.distance;
-                        System.out.println("res = "+result);
-
-                        // 4796 your answer is too high
-                        // 4406 your answer is too high
-                        // 4250
                     }
                 } else {
                     allStep.add(newStep);
@@ -288,7 +283,6 @@ public class Day18 extends Day<Long> {
                 if(newStep.allKeys.length() == allKey.size()) {
                     if(result > newStep.distance) {
                         result = newStep.distance;
-                        System.out.println("res = "+result);
                     }
                 } else {
                     allStep.add(newStep);
